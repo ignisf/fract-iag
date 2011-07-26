@@ -6,6 +6,10 @@
       <Properties>
         <Property name="name" type="java.lang.String" value="mainPanel" noResource="true"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_DeclarationPost" type="java.lang.String" value="private GasketJPanel gasketPanel;"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="gasketPanel = new GasketJPanel();&#xa;gasketPanel.setName(&quot;gasketPanel&quot;);&#xa;mainPanel.add(gasketPanel);"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
     </Container>

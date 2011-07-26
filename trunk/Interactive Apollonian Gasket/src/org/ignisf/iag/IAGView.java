@@ -15,6 +15,7 @@ import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import org.ignisf.iag.frontend.*;
 
 /**
  * The application's main frame.
@@ -115,6 +116,10 @@ public class IAGView extends FrameView {
         mainPanel.setName("mainPanel"); // NOI18N
         mainPanel.setLayout(new java.awt.BorderLayout());
 
+        gasketPanel = new GasketJPanel();
+        gasketPanel.setName("gasketPanel");
+        mainPanel.add(gasketPanel);
+
         menuBar.setName("menuBar"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(org.ignisf.iag.IAGApp.class).getContext().getResourceMap(IAGView.class);
@@ -181,6 +186,7 @@ public class IAGView extends FrameView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel mainPanel;
+    private GasketJPanel gasketPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JLabel statusAnimationLabel;

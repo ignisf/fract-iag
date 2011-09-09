@@ -3,7 +3,7 @@
  * @TODO fix this.
  */
 
-package org.ignisf.iag.primitives;
+package org.ignisf.iag.frontend;
 
 import java.awt.geom.Point2D;
 import math.geom2d.conic.Circle2D;
@@ -95,6 +95,14 @@ public class SoddyCircle2D extends Circle2D {
      */
     public double getCurvature(){
         return curvature;
+    }
+    
+    /**
+     * Get a SoddyCircle from this SoddyCircle2D
+     * @return The SoddyCircle
+     */
+    public SoddyCircle getSoddyCircle(){
+        return new SoddyCircle(this.xc, this.yc, this.curvature, this.level);
     }
 }
 

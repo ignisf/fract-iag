@@ -4,13 +4,17 @@
 
 package org.ignisf.iag;
 
+import java.beans.PropertyChangeEvent;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
+import org.jdesktop.application.Task;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.EventHandler;
+import java.beans.PropertyChangeListener;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -101,7 +105,6 @@ public class IAGView extends FrameView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mainPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -112,13 +115,22 @@ public class IAGView extends FrameView {
         statusMessageLabel = new javax.swing.JLabel();
         statusAnimationLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
-
-        mainPanel.setName("mainPanel"); // NOI18N
-        mainPanel.setLayout(new java.awt.BorderLayout());
-
-        gasketPanel = new GasketJPanel();
-        gasketPanel.setName("gasketPanel");
-        mainPanel.add(gasketPanel);
+        mainToolbar = new javax.swing.JToolBar();
+        clearButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        zoomInButton = new javax.swing.JButton();
+        zoomOutButton = new javax.swing.JButton();
+        leftButton = new javax.swing.JButton();
+        rightButton = new javax.swing.JButton();
+        upButton = new javax.swing.JButton();
+        downButton = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jLabel1 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        helpButton = new javax.swing.JButton();
+        mainPanel = new javax.swing.JPanel();
+        gasketContainer = new javax.swing.JPanel();
 
         menuBar.setName("menuBar"); // NOI18N
 
@@ -157,11 +169,11 @@ public class IAGView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 461, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -179,19 +191,260 @@ public class IAGView extends FrameView {
                 .addGap(3, 3, 3))
         );
 
+        mainToolbar.setRollover(true);
+        mainToolbar.setName("mainToolbar"); // NOI18N
+
+        clearButton.setAction(actionMap.get("clearButtonAction")); // NOI18N
+        clearButton.setText(resourceMap.getString("clearButton.text")); // NOI18N
+        clearButton.setFocusable(false);
+        clearButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        clearButton.setName("clearButton"); // NOI18N
+        clearButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(clearButton);
+
+        jSeparator1.setName("jSeparator1"); // NOI18N
+        mainToolbar.add(jSeparator1);
+
+        zoomInButton.setAction(actionMap.get("zoomInAction")); // NOI18N
+        zoomInButton.setText(resourceMap.getString("zoomInButton.text")); // NOI18N
+        zoomInButton.setFocusable(false);
+        zoomInButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        zoomInButton.setName("zoomInButton"); // NOI18N
+        zoomInButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(zoomInButton);
+
+        zoomOutButton.setAction(actionMap.get("zoomOutAction")); // NOI18N
+        zoomOutButton.setText(resourceMap.getString("zoomOutButton.text")); // NOI18N
+        zoomOutButton.setFocusable(false);
+        zoomOutButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        zoomOutButton.setName("zoomOutButton"); // NOI18N
+        zoomOutButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(zoomOutButton);
+
+        leftButton.setAction(actionMap.get("scrollLeftAction")); // NOI18N
+        leftButton.setText(resourceMap.getString("leftButton.text")); // NOI18N
+        leftButton.setFocusable(false);
+        leftButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        leftButton.setName("leftButton"); // NOI18N
+        leftButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(leftButton);
+
+        rightButton.setAction(actionMap.get("scrollRightAction")); // NOI18N
+        rightButton.setText(resourceMap.getString("rightButton.text")); // NOI18N
+        rightButton.setFocusable(false);
+        rightButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rightButton.setName("rightButton"); // NOI18N
+        rightButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(rightButton);
+
+        upButton.setAction(actionMap.get("scrollUpAction")); // NOI18N
+        upButton.setText(resourceMap.getString("upButton.text")); // NOI18N
+        upButton.setFocusable(false);
+        upButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        upButton.setName("upButton"); // NOI18N
+        upButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(upButton);
+
+        downButton.setAction(actionMap.get("scrollDownAction")); // NOI18N
+        downButton.setText(resourceMap.getString("downButton.text")); // NOI18N
+        downButton.setFocusable(false);
+        downButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        downButton.setName("downButton"); // NOI18N
+        downButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(downButton);
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        mainToolbar.add(jSeparator2);
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+        mainToolbar.add(jLabel1);
+
+        jSpinner1.setMaximumSize(new java.awt.Dimension(50, 22));
+        jSpinner1.setMinimumSize(new java.awt.Dimension(50, 22));
+        jSpinner1.setName("jSpinner1"); // NOI18N
+        jSpinner1.setOpaque(false);
+        jSpinner1.setPreferredSize(new java.awt.Dimension(50, 22));
+        jSpinner1.setValue(5);
+        jSpinner1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSpinner1PropertyChange(evt);
+            }
+        });
+        mainToolbar.add(jSpinner1);
+
+        jSeparator3.setName("jSeparator3"); // NOI18N
+        mainToolbar.add(jSeparator3);
+
+        helpButton.setAction(actionMap.get("showAboutBox")); // NOI18N
+        helpButton.setIcon(resourceMap.getIcon("helpButton.icon")); // NOI18N
+        helpButton.setText(resourceMap.getString("helpButton.text")); // NOI18N
+        helpButton.setFocusable(false);
+        helpButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        helpButton.setName("helpButton"); // NOI18N
+        helpButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        mainToolbar.add(helpButton);
+
+        mainPanel.setName("mainPanel"); // NOI18N
+
+        gasketContainer.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("gasketContainer.border.title"))); // NOI18N
+        gasketContainer.setName("gasketContainer"); // NOI18N
+        gasketContainer.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gasketContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gasketContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+        );
+
+        gasketPanel = new GasketJPanel(this);
+        gasketPanel.setName("gasketPanel");
+        gasketContainer.add(gasketPanel);
+        gasketPanel.addPropertyChangeListener(
+            (PropertyChangeListener)EventHandler.create(PropertyChangeListener.class, new Thread(repaintAction()), "start"));
+
         setComponent(mainPanel);
         setMenuBar(menuBar);
         setStatusBar(statusPanel);
+        setToolBar(mainToolbar);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jSpinner1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSpinner1PropertyChange
+        if(Integer.parseInt(this.jSpinner1.getValue().toString()) < 0) this.jSpinner1.setValue(0);
+        else {
+            this.gasketPanel.level = Integer.parseInt(this.jSpinner1.getValue().toString());
+            this.gasketPanel.repaint();
+        }
+    }//GEN-LAST:event_jSpinner1PropertyChange
+
+    @Action
+    public Task clearButtonAction() {
+        this.gasketPanel.reset();
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public void saveButtonAction() {
+    }
+
+        @Action(block = Task.BlockingScope.APPLICATION)
+    public Task zoomInAction() {
+        this.gasketPanel.zoom(1.3);
+        return new RepaintActionTask(getApplication());
+    }
+
+    private class ZoomInActionTask extends org.jdesktop.application.Task<Object, Void> {
+        ZoomInActionTask(org.jdesktop.application.Application app) {
+            // Runs on the EDT.  Copy GUI state that
+            // doInBackground() depends on from parameters
+            // to ZoomInActionTask fields, here.
+            super(app);
+        }
+        @Override protected Object doInBackground() {
+            // Your Task's code here.  This method runs
+            // on a background thread, so don't reference
+            // the Swing GUI from here.
+            return null;  // return your result
+        }
+        @Override protected void succeeded(Object result) {
+            // Runs on the EDT.  Update the GUI based on
+            // the result computed by doInBackground().
+        }
+    }
+
+    @Action
+    public Task zoomOutAction() {
+        this.gasketPanel.zoom(0.7);
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public Task scrollLeftAction() {
+        this.gasketPanel.shift(50, 0);
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public Task scrollRightAction() {
+        this.gasketPanel.shift(-50, 0);
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public Task scrollUpAction() {
+        this.gasketPanel.shift(0, 50);
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public Task scrollDownAction() {
+        this.gasketPanel.shift(0, -50);
+        return new RepaintActionTask(getApplication());
+    }
+
+    @Action
+    public void settingsAction() {
+    }
+
+    @Action
+    public void helpAction() {
+    }
+    
+    @Action()
+    public Task repaintAction() {
+        return new RepaintActionTask(getApplication());
+    }
+    private class RepaintActionTask extends org.jdesktop.application.Task<Object, Void> {
+        RepaintActionTask(org.jdesktop.application.Application app) {
+            // Runs on the EDT.  Copy GUI state that
+            // doInBackground() depends on from parameters
+            // to ScrollLeftActionTask fields, here.
+            super(app);
+        }
+        @Override protected Object doInBackground() {
+            // Your Task's code here.  This method runs
+            // on a background thread, so don't reference
+            // the Swing GUI from here.
+                this.setMessage("Drawing");
+                this.setProgress(0);
+            gasketPanel.repaint();
+            return null;  // return your result
+        }
+        @Override protected void succeeded(Object result) {
+            // Runs on the EDT.  Update the GUI based on
+            // the result computed by doInBackground().
+        }
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel mainPanel;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JButton downButton;
+    private javax.swing.JPanel gasketContainer;
     private GasketJPanel gasketPanel;
+    private javax.swing.JButton helpButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton leftButton;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JToolBar mainToolbar;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JButton rightButton;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JButton upButton;
+    private javax.swing.JButton zoomInButton;
+    private javax.swing.JButton zoomOutButton;
     // End of variables declaration//GEN-END:variables
 
     private final Timer messageTimer;

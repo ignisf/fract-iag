@@ -85,8 +85,8 @@ public class DescartesTheorem {
          */
         ArrayList<SoddyCircle> children = new ArrayList<SoddyCircle>(2);
         
-        children.add(new SoddyCircle(z4, k4, 1));
-        children.add(new SoddyCircle(z5, k5, 1));
+        children.add(new SoddyCircle(z4, k4, 0));
+        children.add(new SoddyCircle(z5, k5, 0));
         
         return children;
     }

@@ -69,24 +69,26 @@ public class ApollonianSet {
          */
         ArrayList<SoddyCircle> heirs = new ArrayList<SoddyCircle>(3);
         
-        /**
-         * The daughters.
-         */
-        SoddyCircle[] d = new SoddyCircle[3];
-        d[0] = DescartesTheorem.getDaughter(m, a1, a2, a3);
-        d[1] = DescartesTheorem.getDaughter(m, a3, a1, a2);
-        d[2] = DescartesTheorem.getDaughter(m, a2, a3, a1);
-        
-        /* Adding the daughters to the set */
-        heirs.add(d[0]);
-        heirs.add(d[1]);
-        heirs.add(d[2]);
-        
-        /* Recuring if we are not at the maximum level */
-        if(m.l+1 < n){
-            heirs.addAll(this.getHeirs(d[0], m, a2, a3, n));
-            heirs.addAll(this.getHeirs(d[1], m, a1, a2, n));
-            heirs.addAll(this.getHeirs(d[2], m, a3, a1, n));
+        if (n>=1){
+            /**
+             * The daughters.
+             */
+            SoddyCircle[] d = new SoddyCircle[3];
+            d[0] = DescartesTheorem.getDaughter(m, a1, a2, a3);
+            d[1] = DescartesTheorem.getDaughter(m, a3, a1, a2);
+            d[2] = DescartesTheorem.getDaughter(m, a2, a3, a1);
+
+            /* Adding the daughters to the set */
+            heirs.add(d[0]);
+            heirs.add(d[1]);
+            heirs.add(d[2]);
+
+            /* Recuring if we are not at the maximum level */
+            if(m.l+1 < n){
+                heirs.addAll(this.getHeirs(d[0], m, a2, a3, n));
+                heirs.addAll(this.getHeirs(d[1], m, a1, a2, n));
+                heirs.addAll(this.getHeirs(d[2], m, a3, a1, n));
+            }
         }
         return heirs;
     }

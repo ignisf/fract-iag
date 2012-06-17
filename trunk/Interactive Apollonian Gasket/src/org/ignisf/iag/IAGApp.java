@@ -1,5 +1,6 @@
 /*
  * IAGApp.java
+ * $Id$
  */
 
 package org.ignisf.iag;
